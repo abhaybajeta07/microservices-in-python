@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: webapp
-        image: webapp:1.0
+        image: public.ecr.aws/j3w6b3z1/devops-project
         ports:
         - containerPort: 5000
