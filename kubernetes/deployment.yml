@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: webapp
-        image: public.ecr.aws/j3w6b3z1/devops-project
+        image: 675021605538.dkr.ecr.ap-south-1.amazonaws.com/devops-project:latest
         ports:
         - containerPort: 5000

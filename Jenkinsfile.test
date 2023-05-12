@@ -1,0 +1,28 @@
+pipeline {
+
+    agent any
+    stages {
+        stage ('Build'){
+              steps {
+                sh 'sudo docker build -t devops-project:latest .'
+            }
+        }
+        stage('Deploy to ECR') {
+            steps {
+                script{
+                        docker.withRegistry('https://675021605538.dkr.ecr.ap-south-1.amazonaws.com/devops-project:latest', 'ecr:ap-south-1:aws-credentials') {
+                       def myImage= docker.build('devops-project')
+                       myImage.push('latest')
+                    }
+                }
+            }
+        }
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    sh 'kubectl set image deployment/python-webapp webapp=675021605538.dkr.ecr.ap-south-1.amazonaws.com/devops-project:latest'
+                }
+            }
+        }
+    }
+}
